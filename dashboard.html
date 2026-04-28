@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard - TaskFly</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+
+    <!-- CONTEÚDO SUPERIOR DA SIDEBAR -->
+    <div class="sidebar-content">
+
+      <!-- TOPO: usuário + ícones -->
+      <div class="sidebar-top">
+
+        <!-- Informações do usuário logado -->
+        <div class="user-box">
+          <div class="avatar" id="userAvatar">T</div>
+
+          <div class="user-info">
+            <span id="userName">Usuário</span>
+            <small>TaskFly</small>
+          </div>
+        </div>
+
+        <!-- Botões do topo da sidebar -->
+        <div class="top-icons">
+          <button class="icon-btn" title="Notificações">
+            🔔
+          </button>
+
+          <button class="icon-btn" onclick="toggleSidebar()" title="Recolher menu">
+            ☰
+          </button>
+        </div>
+      </div>
+
+      <!-- Botão que abre o modal de nova tarefa -->
+      <button class="add-task-btn" onclick="openTaskModal()">
+        + Adicionar tarefa
+      </button>
+
+      <!-- Menu de filtros -->
+      <nav class="menu">
+        <button onclick="setFilter('all')">📋 Todas</button>
+        <button onclick="setFilter('pending')">⏳ Pendentes</button>
+        <button onclick="setFilter('completed')">✅ Concluídas</button>
+      </nav>
+
+      <!-- Seção de projetos -->
+      <div class="projects-section">
+        <div class="projects-title">
+          <span>Meus projetos</span>
+          <button onclick="showProjectForm()">+</button>
+        </div>
+
+        <!-- Formulário para criar projeto -->
+        <div class="project-form" id="projectForm">
+          <input type="text" id="projectNameInput" placeholder="Nome do projeto">
+          <button onclick="saveNewProject()">Criar</button>
+        </div>
+
+        <!-- Lista de projetos criada pelo JavaScript -->
+        <div id="projectsList"></div>
+      </div>
+    </div>
+
+    <!-- RODAPÉ DA SIDEBAR -->
+    <div class="sidebar-footer">
+      <button onclick="toggleTheme()">🌙 Tema</button>
+      <button onclick="logout()">Sair</button>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="app-main">
+
+    <!-- Cabeçalho do conteúdo principal -->
+    <section class="content-header">
+      <h1 id="pageTitle">Todas as tarefas</h1>
+      <p>Organize suas tarefas pessoais</p>
+      <input 
+  type="text" 
+  id="searchInput" 
+  class="search-input"
+  placeholder="Buscar tarefa..."
+  oninput="renderTasks()"
+>
+    </section>
+
+    <!-- Lista de tarefas renderizada pelo JavaScript -->
+    <section id="taskList" class="todo-list"></section>
+  </main>
+
+  <!-- MODAL DE NOVA TAREFA -->
+  <div class="modal-overlay" id="taskModal">
+    <div class="task-modal">
+
+      <!-- Nome da tarefa -->
+      <input 
+        type="text" 
+        id="modalTaskTitle" 
+        placeholder="Nome da tarefa..."
+      >
+
+      <!-- Descrição da tarefa -->
+      <textarea 
+        id="modalTaskDescription" 
+        placeholder="Descrição"
+      ></textarea>
+
+      <!-- Opções da tarefa -->
+      <div class="modal-options">
+  <select id="modalTaskProject">
+    <option value="all">Sem projeto</option>
+  </select>
+
+  <select id="modalTaskPriority">
+    <option value="baixa">Baixa</option>
+    <option value="media">Média</option>
+    <option value="alta">Alta</option>
+  </select>
+
+  <input type="date" id="modalTaskDate">
+  <input type="time" id="modalTaskTime">
+</div>
+
+      <!-- Botões do modal -->
+      <div class="modal-actions">
+        <button onclick="closeTaskModal()">Cancelar</button>
+        <button onclick="addTaskFromModal()">Adicionar tarefa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts do projeto -->
+  <script src="auth.js"></script>
+  <script src="tasks.js"></script>
+  <script src="theme.js"></script>
+</body>
+</html>
